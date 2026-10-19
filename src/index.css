@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/* ---------- HIDE SCROLLBAR (keeps scroll functionality) ---------- */
+html,
+body {
+    /* Firefox */
+    scrollbar-width: none;
+    /* IE / Edge legacy */
+    -ms-overflow-style: none;
+}
+
+/* Chrome / Safari / Edge (WebKit) */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+/* Also hide on the root scroller just in case */
+::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+/* Firefox fallback for all elements */
+* {
+    scrollbar-width: none;
+}
+
+* {
+    -ms-overflow-style: none;
+}
+
+@keyframes letterGlow {
+    0% {
+        color: inherit;
+        text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+        transform: translateY(0);
+    }
+
+    50% {
+        color: #ffffff;
+        text-shadow: 0 0 26px rgba(255, 255, 255, 0.75), 0 0 60px rgba(120, 180, 255, 0.5);
+        transform: translateY(-6px);
+    }
+
+    100% {
+        color: #ffffff;
+        text-shadow: 0 0 18px rgba(255, 255, 255, 0.55), 0 0 40px rgba(120, 180, 255, 0.35);
+        transform: translateY(0);
+    }
+}
+
+.hero-letter:hover {
+    animation: letterGlow 0.55s ease-out forwards;
+    color: #ffffff;
+}
