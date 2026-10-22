@@ -36,7 +36,7 @@ function App() {
 
   // --- WhatsApp ---
   const WHATSAPP_NUMBER = '918073415414';
-  const WHATSAPP_MESSAGE = encodeURIComponent('Hi NexBridge! I would like to discuss a project.');
+  const WHATSAPP_MESSAGE = encodeURIComponent('Hi StackBergAI! I would like to discuss a project.');
   const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
 
   const textVariants = [
@@ -404,7 +404,7 @@ function App() {
     const coin = document.createElement('img');
     coin.className = 'coin';
     coin.src = COIN_IMAGE_URL;
-    coin.alt = 'NexBridge coin';
+    coin.alt = 'StackBergAI coin';
     coin.draggable = false;
     coin.style.position = 'absolute';
     coin.style.left = '0px';
@@ -741,7 +741,7 @@ function App() {
 
           <div className="relative z-10 flex justify-between items-center p-5 md:p-12 shrink-0">
             <div className="text-2xl md:text-4xl font-semibold text-white tracking-tight">
-              NexBridge <span className="text-blue-500">.</span>
+              StackBergAI <span className="text-blue-500">.</span>
             </div>
             <button
               onClick={() => setIsMenuOpen(false)}
@@ -786,8 +786,8 @@ function App() {
           <div className="relative z-10 border-t border-white/10 p-5 md:p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shrink-0">
             <div className="flex flex-col">
               <span className="text-[10px] md:text-xs text-white/30 uppercase tracking-widest mb-1">Contact</span>
-              <a href="mailto:support@nexbridge.com" className="text-sm md:text-base text-white/80 hover:text-blue-400 transition-colors break-all">
-                support@nexbridge.com
+              <a href="mailto:support@stackbergai.com" className="text-sm md:text-base text-white/80 hover:text-blue-400 transition-colors break-all">
+                support@stackbergai.com
               </a>
             </div>
             <a
@@ -801,7 +801,7 @@ function App() {
               </svg>
               WhatsApp us
             </a>
-            <span className="text-xs md:text-sm text-white/30">© NexBridge 2026</span>
+            <span className="text-xs md:text-sm text-white/30">© StackBergAI 2026</span>
           </div>
         </div>
       </div>
@@ -832,7 +832,7 @@ function App() {
         <div ref={heroSectionRef} className="bg-blue-700 w-full max-w-[1700px] min-h-[85vh] md:h-[85vh] rounded-[1.5rem] md:rounded-[2rem] p-5 md:p-12 relative overflow-hidden flex flex-col text-[#E2E8E3]">
           <header className="flex justify-between items-center z-10 gap-3">
             <div className="text-2xl md:text-4xl font-semibold text-black tracking-tight">
-              NexBridge <span className="text-white">.</span>
+              StackBergAI <span className="text-white">.</span>
             </div>
             <div className="flex gap-2 md:gap-3 text-xs md:text-base font-medium">
               <button className="bg-[#051633] hover:bg-black transition-colors px-3 py-2 md:px-5 md:py-2.5 rounded-full text-white whitespace-nowrap">
@@ -1394,7 +1394,7 @@ function App() {
           <div className="flex-1 flex flex-col md:flex-row justify-between w-full gap-8 md:gap-8">
             <div className="w-full md:w-1/3">
               <div className="text-3xl md:text-5xl font-semibold text-white tracking-tight">
-                NexBridge.
+                StackBergAI
               </div>
             </div>
 
@@ -1405,16 +1405,13 @@ function App() {
                 <button onClick={() => scrollToSection('projects')} className="text-base md:text-lg text-left hover:text-white transition-colors">Projects</button>
                 <button onClick={() => scrollToSection('contacts')} className="text-base md:text-lg text-left hover:text-white transition-colors">Contacts</button>
               </div>
-              <div className="flex flex-col gap-3 md:gap-4">
-                <a href="#" className="text-base md:text-lg hover:text-white transition-colors">LinkedIn</a>
-                <a href="#" className="text-base md:text-lg hover:text-white transition-colors">Upwork</a>
-              </div>
+              
             </div>
 
             <div className="w-full md:w-1/3 flex flex-col gap-5 md:gap-8 md:items-end text-left md:text-right">
               <div>
                 <span className="block text-xs md:text-sm text-gray-500 mb-1">Contact us</span>
-                <a href="mailto:support@nexbridge.com" className="text-base md:text-lg text-white hover:underline break-all">support@nexbridge.com</a>
+                <a href="mailto:support@StackBergAIcom" className="text-base md:text-lg text-white hover:underline break-all">support@StackBergAIcom</a>
               </div>
               <div>
                 <span className="block text-xs md:text-sm text-gray-500 mb-1">Based in</span>
@@ -1424,7 +1421,7 @@ function App() {
           </div>
 
           <div className="w-full flex flex-col md:flex-row justify-between items-center mt-12 md:mt-24 pt-6 md:pt-8 border-t border-white/10 gap-4 md:gap-0">
-            <span className="text-xs md:text-sm text-gray-500">© NexBridge 2026. All rights reserved.</span>
+            <span className="text-xs md:text-sm text-gray-500">© StackBergAI 2026. All rights reserved.</span>
 
             <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-[10px] md:text-sm text-gray-500">
               <a href="#" className="hover:text-white transition-colors">PRIVACY</a>
