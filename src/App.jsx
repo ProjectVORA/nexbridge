@@ -3,10 +3,11 @@ import {
   ArrowRight, ArrowUpRight, ArrowLeft, BadgeCheck, Building2, CheckCircle2, Cctv, Cloud, Code2, Cpu,
   Factory, GraduationCap, HeartPulse, Laptop, Mail, MapPin, Menu, MonitorSmartphone, Network,
   Phone, Rocket, ShieldCheck, ShoppingBag, Sparkles, Star, Store, Users, Wifi, X, Zap, Plus, Minus,
-  Send, ChevronRight, ChevronDown, Server, Headset, HardDrive, Search, Briefcase, Award, Handshake,
+  Send, ChevronRight, ChevronDown, Server, Headset, HardDrive,Quote, Search, Briefcase, Award, Handshake,
   BookOpen, FileText, Download, Landmark, Truck, Stethoscope, CreditCard, MessageCircle, Clock,
   Map as MapIcon, ArrowUp, FileDown, CalendarDays, User, Wrench, HandCoins, Globe,Settings,TrendingDown,Plane ,Bot ,Headphones ,Package ,CircleDollarSign ,ShoppingCart ,MonitorPlay ,ChevronLeft ,
 } from "lucide-react";
+import CardSwap from "./component/card"
 
 
 // ─────────────────────────────────────────────────────────────
@@ -769,10 +770,10 @@ const createBusinessPath = (node) => {
   });
 
   return (
-    <section className="relative mb-24 overflow-hidden">
+    <section className="relative  overflow-hidden">
 
       {/* Section Heading */}
-      <div className="mb-10">
+      <div className="">
         <h2 className="text-4xl font-medium tracking-tight sm:text-5xl">
           Software Ecosystem
         </h2>
@@ -785,7 +786,7 @@ const createBusinessPath = (node) => {
       {/* Main Diagram */}
       <div className="relative overflow-x-auto  bg-[#000000] shadow-2xl">
 
-        <div className="relative mx-auto h-[620px] min-w-[1000px] max-w-[1400px]">
+        <div className="relative mx-auto h-[600px] min-w-[1000px] max-w-[1400px]">
 
           {/* Background Atmosphere */}
           <div className="absolute inset-0 pointer-events-none">
@@ -1018,12 +1019,7 @@ const createBusinessPath = (node) => {
 
         </div>
 
-        {/* Footer */}
-        <div className="relative z-10 border-t border-white/5 bg-[#050b1d]/80 px-5 py-6 text-center backdrop-blur-md">
-          <p className="text-[10px] font-normal uppercase tracking-[0.2em] text-blue-300/50">
-            One Business • Multiple Solutions • Infinite Possibilities
-          </p>
-        </div>
+        
 
       </div>
     </section>
@@ -1151,14 +1147,78 @@ export default function App() {
   const [whatsAppNote, setWhatsAppNote] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [heroSearch, setHeroSearch] = useState("");
+  const testimonialSliderRef = useRef(null);
   const [showHowWeWork, setShowHowWeWork] = useState(false);
   const [selectedSolution, setSelectedSolution] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const touchX = useRef(null);
+  const [industryIndex, setIndustryIndex] = useState(0);
+
+  const scrollTestimonials = (dir) => {
+    const el = testimonialSliderRef.current; 
+    if (!el) return;
+    // Scroll by the width of one card plus the gap
+    const card = el.querySelector(".snap-start");
+    const step = card ? card.offsetWidth + 20 : 360;
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
+  };
+
+const industrySliderRef = useRef(null);
+  const scrollIndustries = (dir) => {
+    const el = industrySliderRef.current; 
+    if (!el) return;
+    const card = el.querySelector("[data-industry-card]");
+    const step = card ? card.offsetWidth + 20 : 400;
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
+  };
+
+  const goToIndustry = (i) => {
+    const el = industrySliderRef.current; 
+    if (!el) return;
+    const card = el.querySelector("[data-industry-card]");
+    const step = card ? card.offsetWidth + 20 : 400;
+    el.scrollTo({ left: i * step, behavior: "smooth" });
+    setIndustryIndex(i);
+  };
+
+  const onIndustryScroll = () => {
+    const el = industrySliderRef.current; 
+    if (!el) return;
+    const card = el.querySelector("[data-industry-card]");
+    const step = card ? card.offsetWidth + 20 : 400;
+    setIndustryIndex(Math.round(el.scrollLeft / step));
+  };
 
 
   const [activeSlide, setActiveSlide] = useState(0);
+  const [caseStudyIndex, setCaseStudyIndex] = useState(0);
+const caseStudySliderRef = useRef(null);
+
+  const scrollCaseStudies = (dir) => {
+    const el = caseStudySliderRef.current; 
+    if (!el) return;
+    const card = el.querySelector("[data-case-card]");
+    const step = card ? card.offsetWidth + 20 : 400;
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
+  };
+
+  const goToCaseStudy = (i) => {
+    const el = caseStudySliderRef.current; 
+    if (!el) return;
+    const card = el.querySelector("[data-case-card]");
+    const step = card ? card.offsetWidth + 20 : 400;
+    el.scrollTo({ left: i * step, behavior: "smooth" });
+    setCaseStudyIndex(i);
+  };
+
+  const onCaseStudyScroll = () => {
+    const el = caseStudySliderRef.current; 
+    if (!el) return;
+    const card = el.querySelector("[data-case-card]");
+    const step = card ? card.offsetWidth + 20 : 400;
+    setCaseStudyIndex(Math.round(el.scrollLeft / step));
+  };
 
 const cardsPerSlide = 4;
 const totalSlides = Math.ceil(hardwareCards.length / cardsPerSlide);
@@ -1307,82 +1367,156 @@ useEffect(() => {
 
   return (
     <div data-safe-area-inset-root style={{ boxSizing: "border-box", paddingTop: "var(--safe-area-inset-top)", minHeight: "100vh", background: "#080616" }} className="overflow-x-clip text-white">
-      <div className="bg-[#2F2FE4] px-3 py-2 text-center text-[11px] font-normal text-white sm:text-[12px]">
-        <span className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
-          <span>End-to-End Technology Solutions</span><span className="hidden sm:inline">|</span><span>Serving Across India</span><span className="hidden sm:inline">|</span>
-          <span>24/7 Support - Call: <a href="tel:+919000000000" target="_blank" rel="noopener" className="underline underline-offset-2">+91 90000 00000</a></span>
+     {/* 1. TOP PROMO BAR - Fixed at the very top */}
+<div className="fixed left-0 top-0 z-[60] w-full bg-[#2F2FE4] px-3 py-2 text-center text-[11px] font-normal text-white sm:text-[12px] shadow-sm">
+  <span className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+    <span>End-to-End Technology Solutions</span>
+    <span className="hidden sm:inline">|</span>
+    <span>Serving Across India</span>
+    <span className="hidden sm:inline">|</span>
+    <span>24/7 Support - Call: <a href="tel:+919000000000" target="_blank" rel="noopener" className="underline underline-offset-2 hover:text-gray-200">+91 90000 00000</a></span>
+  </span>
+</div>
+
+{/* 2. MAIN NAVIGATION - Fixed just below the promo bar */}
+<header className="fixed left-0 top-[36px] sm:top-[34px] z-50 w-full border-b border-white/5 bg-[#080616]/95 shadow-lg shadow-black/30 backdrop-blur-md">
+  <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-2 px-3 py-2.5 sm:px-5">
+    
+    {/* Logo */}
+    <button onClick={() => goTo("home")} className="flex min-w-0 items-center gap-2.5 text-left" aria-label="TechVista — home">
+      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#2F2FE4] to-[#162E93] text-[22px] font-medium text-white shadow-lg">T</span>
+      <span className="leading-none">
+        <span className="block text-[19px] font-medium tracking-tight text-white sm:text-[21px]">
+          Tech<span className="gradient-text">Vista</span>
         </span>
-      </div>
+        <span className="mt-1 block text-[9px] font-medium uppercase tracking-[0.28em] text-white/80">Solutions</span>
+      </span>
+    </button>
 
-      <header data-safe-area-sticky-top style={{ top: "var(--safe-area-inset-top)" }} className="sticky z-50 bg-[#080616] shadow-lg shadow-black/30 backdrop-blur">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-2 px-3 py-2.5 sm:px-5">
-          <button onClick={() => goTo("home")} className="flex min-w-0 items-center gap-2.5 text-left" aria-label="TechVista — home">
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#2F2FE4] to-[#162E93] text-[22px] font-medium text-white shadow-lg">T</span>
-            <span className="leading-none"><span className="block text-[19px] font-medium tracking-tight text-white sm:text-[21px]">Tech<span className="gradient-text">Vista</span></span><span className="mt-1 block text-[9px] font-medium uppercase tracking-[0.28em] text-white/80">Solutions</span></span>
+    {/* Desktop Nav */}
+   <nav
+  className="hidden md:flex shrink-0 items-center justify-center gap-0.5"
+  aria-label="Main navigation"
+>
+      {NAV.map((item) => (
+        <div 
+          key={item.id} 
+          className="group relative" 
+          onMouseEnter={() => item.groups || item.items ? setOpenDropdown(item.id) : setOpenDropdown(null)} 
+          onMouseLeave={() => setOpenDropdown(null)}
+        >
+          <button 
+            onClick={() => { if (item.groups || item.items) setOpenDropdown(openDropdown === item.id ? null : item.id); else goTo(item.target); }} 
+            aria-expanded={openDropdown === item.id} 
+            aria-haspopup={item.groups || item.items ? "true" : undefined} 
+            className={`relative flex items-center gap-1 rounded-full px-3 py-2 text-[13px] font-normal transition ${activeSection === item.id || openDropdown === item.id ? "bg-[#2F2FE4] text-white shadow-md" : "text-white hover:bg-[#2F2FE4]"}`}
+          >
+            {item.label}
+            {(item.groups || item.items) && <ChevronDown size={13} className={`transition ${openDropdown === item.id ? "rotate-180" : ""}`} />}
           </button>
-          <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Main navigation">
-            {NAV.map((item) => (
-              <div key={item.id} className="group relative" onMouseEnter={() => item.groups || item.items ? setOpenDropdown(item.id) : setOpenDropdown(null)} onMouseLeave={() => setOpenDropdown(null)}>
-                <button onClick={() => { if (item.groups || item.items) setOpenDropdown(openDropdown === item.id ? null : item.id); else goTo(item.target); }} aria-expanded={openDropdown === item.id} aria-haspopup={item.groups || item.items ? "true" : undefined} className={`relative flex items-center gap-1 rounded-full px-3 py-2 text-[13px] font-normal transition ${activeSection === item.id || openDropdown === item.id ? "bg-[#2F2FE4] text-white shadow-md" : "text-white hover:bg-[#2F2FE4]"}`}>
-                  {item.label}{(item.groups || item.items) && <ChevronDown size={13} className={`transition ${openDropdown === item.id ? "rotate-180" : ""}`} />}
-                </button>
-                {openDropdown === item.id && item.groups && (
-                  <div className="absolute left-1/2 top-full z-50 w-[860px] -translate-x-1/2 pt-2"><div className="rounded-3xl border border-[#2F2FE4] bg-[#080616] p-5 shadow-2xl">
-                    <div className="grid grid-cols-4 gap-5">{item.groups.map((g) => <div key={g.heading}><p className="border-b border-[#2F2FE4]/40 pb-2 text-[11px] font-medium uppercase tracking-[0.14em] text-white">{g.heading}</p><ul className="mt-2 space-y-0.5">{g.items.map((c) => <li key={c.label}><button onClick={() => chooseNavChild(c)} className="w-full rounded-lg px-2 py-1.5 text-left text-[13px] font-seminormal text-white hover:bg-[#2F2FE4] hover:text-white">{c.label}</button></li>)}</ul></div>)}</div>
-                    <div className="mt-4 flex items-center justify-between rounded-2xl bg-[#2F2FE4] px-4 py-3 text-sm"><span className="font-normal text-white">Not sure which product fits? <span className="text-white/80">Tell us your use case.</span></span><button onClick={() => chooseService("Request a Quote — IT Infrastructure")} className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-[#080616]">Get a Quote <ArrowRight size={13} /></button></div>
-                  </div></div>
-                )}
-                {openDropdown === item.id && item.items && !item.groups && (
-                  <div className="absolute left-0 top-full z-50 w-64 pt-2"><div className="rounded-2xl border border-[#2F2FE4] bg-[#080616] p-2 shadow-2xl">{item.items.map((c) => <button key={c.label} onClick={() => chooseNavChild(c)} className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-normal text-white hover:bg-[#2F2FE4] hover:text-white">{c.label}<ChevronRight size={14} className="text-white" /></button>)}</div></div>
-                )}
-              </div>
-            ))}
-          </nav>
-          <div className="flex items-center gap-2">
-            {searchOpen ? (
-              <form onSubmit={(e) => { e.preventDefault(); setSearchOpen(false); goTo("products"); }} className="flex items-center gap-1 rounded-full border border-[#2F2FE4] bg-[#1A1953] p-1 pl-3">
-                <label className="sr-only" htmlFor="nav-search">Search products</label>
-                <input id="nav-search" autoFocus value={heroSearch} onChange={(e) => setHeroSearch(e.target.value)} placeholder="Search products…" className="w-28 bg-transparent text-sm text-white outline-none placeholder:text-white/50 sm:w-40" />
-                <button type="submit" className="rounded-full bg-[#2F2FE4] px-3 py-1.5 text-xs font-medium text-white">Go</button>
-                <button type="button" onClick={() => setSearchOpen(false)} aria-label="Close search" className="grid h-8 w-8 place-items-center rounded-full hover:bg-white/10 text-white"><X size={15} /></button>
-              </form>
-            ) : (
-              <button onClick={() => setSearchOpen(true)} aria-label="Search products" className="grid h-10 w-10 place-items-center rounded-full border border-[#2F2FE4] bg-white/10 text-white transition hover:bg-white/20"><Search size={18} /></button>
-            )}
-            <a href="tel:+919000000000" target="_blank" rel="noopener" className="hidden h-10 items-center gap-2 rounded-full border border-[#2F2FE4]/50 bg-[#2F2FE4] px-3.5 text-[13px] font-medium text-white transition hover:bg-[#162E93] md:inline-flex"><Phone size={15} className="text-white" /><span className="hidden lg:inline">+91 90000 00000</span><span className="lg:hidden">Call</span></a>
-            <button onClick={() => chooseService("Request a Quote — IT Infrastructure")} className="hidden items-center gap-2 rounded-full bg-[#2F2FE4] px-4 py-2.5 text-[13px] font-medium text-white shadow-md hover:bg-white hover:text-[#080616] sm:inline-flex">Get a Quote <ArrowRight size={15} /></button>
-            <button onClick={() => setMenuOpen((v) => !v)} className="flex h-11 items-center gap-2 rounded-full border border-white/30 bg-[#2F2FE4] px-3 text-sm font-medium text-white lg:hidden xl:hidden" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen}>{menuOpen ? <X size={19} /> : <Menu size={19} />}<span className="hidden sm:inline">MENU</span></button>
-          </div>
-        </div>
-        {menuOpen && (
-          <div className="fixed inset-0 z-[70] overflow-y-auto bg-[#080616] pt-[max(1rem,var(--safe-area-inset-top))] text-white lg:hidden">
-            <div className="min-h-full px-4 pb-8 pt-2">
-              <div className="mx-auto flex max-w-3xl items-center justify-between"><span className="flex items-center gap-2"><span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-[#2F2FE4] to-[#162E93] text-lg font-medium text-white">T</span><span className="font-medium text-white">Tech<span className="gradient-text">Vista</span> <span className="block text-[9px] tracking-[0.28em] text-white/80">SOLUTIONS</span></span></span><button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="grid h-11 w-11 place-items-center rounded-full border border-white/30 bg-[#2F2FE4] text-white"><X size={20} /></button></div>
-              <p className="mx-auto mt-6 max-w-3xl px-1 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-white/80">End-to-End Technology Solutions</p>
-              <div className="grid gap-1">
-                {NAV.map((item) => {
-                  const hasChildren = !!(item.groups || item.items);
-                  const expanded = mobileSection === item.id;
-                  const flat = item.groups ? item.groups.flatMap((g) => g.items.map((c) => ({ ...c, label: `${g.heading} — ${c.label}` }))) : (item.items || []);
-                  return (
-                    <div key={item.id} className="overflow-hidden rounded-2xl border border-white/20 bg-[#2F2FE4]">
-                      <div className="flex items-center">
-                        <button onClick={() => goTo(item.target)} className="flex-1 px-4 py-4 text-left text-[21px] font-medium leading-tight text-white">{item.label}</button>
-                        {hasChildren && <button onClick={() => setMobileSection(expanded ? null : item.id)} aria-expanded={expanded} aria-label={`Toggle ${item.label}`} className="grid h-11 w-11 place-items-center text-white"><ChevronDown size={18} className={`transition ${expanded ? "rotate-180" : ""}`} /></button>}
-                      </div>
-                      {hasChildren && expanded && <div className="border-t border-white/20 bg-[#080616] px-2 pb-2 pt-1">{flat.map((c) => <button key={c.label} onClick={() => chooseNavChild(c)} className="w-full rounded-xl px-3 py-2.5 text-left text-sm font-seminormal text-white hover:bg-[#2F2FE4]">{c.label}</button>)}</div>}
+          
+          {/* Mega Menu Dropdown - Changed Positioning to Right-Aligned to prevent overflow */}
+          {openDropdown === item.id && item.groups && (
+            <div className="absolute left-0 top-full z-50 w-[860px] pt-2">
+              <div className="rounded-3xl border border-[#2F2FE4] bg-[#080616] p-5 shadow-2xl">
+                <div className="grid grid-cols-4 gap-5">
+                  {item.groups.map((g) => (
+                    <div key={g.heading}>
+                      <p className="border-b border-[#2F2FE4]/40 pb-2 text-[11px] font-medium uppercase tracking-[0.14em] text-white">{g.heading}</p>
+                      <ul className="mt-3 space-y-1">
+                        {g.items.map((c) => (
+                          <li key={c.label}>
+                            <button onClick={() => chooseNavChild(c)} className="w-full rounded-lg px-2 py-2 text-left text-[13px] font-normal text-white/80 hover:bg-[#2F2FE4] hover:text-white transition-colors">{c.label}</button>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
+                <div className="mt-5 flex items-center justify-between rounded-2xl bg-[#2F2FE4] px-5 py-4 text-sm">
+                  <span className="font-normal text-white">Not sure which product fits? <span className="text-white/80">Tell us your use case.</span></span>
+                  <button onClick={() => chooseService("Request a Quote — IT Infrastructure")} className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#080616] transition hover:scale-105">Get a Quote <ArrowRight size={14} /></button>
+                </div>
               </div>
-              <button onClick={() => chooseService("Request a Quote — IT Infrastructure")} className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-[#2F2FE4] px-4 py-3.5 text-sm font-medium text-white">Get a Quote <ArrowRight size={16} /></button>
-              <div className="mt-4 flex flex-wrap gap-3 text-sm font-normal text-white"><a href="tel:+919000000000" target="_blank" rel="noopener" className="flex items-center gap-2"><Phone size={15} className="text-white" /> +91 90000 00000</a><a href="mailto:info@yourcompany.com" target="_blank" rel="noopener" className="flex items-center gap-2 [overflow-wrap:anywhere]"><Mail size={15} className="text-white" /> info@yourcompany.com</a></div>
             </div>
-          </div>
-        )}
-      </header>
+          )}
 
-      <main>
+          {/* Normal Dropdown */}
+          {openDropdown === item.id && item.items && !item.groups && (
+            <div className="absolute left-0 top-full z-50 w-64 pt-2">
+              <div className="rounded-2xl border border-[#2F2FE4] bg-[#080616] p-2 shadow-2xl">
+                {item.items.map((c) => (
+                  <button key={c.label} onClick={() => chooseNavChild(c)} className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-normal text-white hover:bg-[#2F2FE4] hover:text-white transition-colors">{c.label}<ChevronRight size={14} className="text-white/50" /></button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+
+    {/* Right Actions */}
+    <div className="flex items-center gap-2">
+      {searchOpen ? (
+        <form onSubmit={(e) => { e.preventDefault(); setSearchOpen(false); goTo("products"); }} className="flex items-center gap-1 rounded-full border border-[#2F2FE4] bg-[#1A1953] p-1 pl-3">
+          <label className="sr-only" htmlFor="nav-search">Search products</label>
+          <input id="nav-search" autoFocus value={heroSearch} onChange={(e) => setHeroSearch(e.target.value)} placeholder="Search products…" className="w-28 bg-transparent text-sm text-white outline-none placeholder:text-white/50 sm:w-40" />
+          <button type="submit" className="rounded-full bg-[#2F2FE4] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#162E93]">Go</button>
+          <button type="button" onClick={() => setSearchOpen(false)} aria-label="Close search" className="grid h-8 w-8 place-items-center rounded-full hover:bg-white/10 text-white"><X size={15} /></button>
+        </form>
+      ) : (
+        <button onClick={() => setSearchOpen(true)} aria-label="Search products" className="grid h-10 w-10 place-items-center rounded-full border border-[#2F2FE4] bg-white/10 text-white transition hover:bg-white/20"><Search size={18} /></button>
+      )}
+      <a href="tel:+919000000000" target="_blank" rel="noopener" className="hidden h-10 items-center gap-2 rounded-full border border-[#2F2FE4]/50 bg-[#2F2FE4] px-3.5 text-[13px] font-medium text-white transition hover:bg-[#162E93] md:inline-flex">
+        <Phone size={15} className="text-white" />
+        <span className="hidden lg:inline">+91 90000 00000</span><span className="lg:hidden">Call</span>
+      </a>
+      <button onClick={() => chooseService("Request a Quote — IT Infrastructure")} className="hidden items-center gap-2 rounded-full bg-[#2F2FE4] px-4 py-2.5 text-[13px] font-medium text-white shadow-md hover:bg-white hover:text-[#080616] sm:inline-flex transition-colors">Get a Quote <ArrowRight size={15} /></button>
+      <button onClick={() => setMenuOpen((v) => !v)} className="flex h-11 items-center gap-2 rounded-full border border-white/30 bg-[#2F2FE4] px-3 text-sm font-medium text-white lg:hidden xl:hidden" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen}>{menuOpen ? <X size={19} /> : <Menu size={19} />}<span className="hidden sm:inline">MENU</span></button>
+    </div>
+  </div>
+
+  {/* Mobile Menu Overlay - High Z-Index to cover everything */}
+  {menuOpen && (
+    <div className="fixed inset-0 z-[70] overflow-y-auto bg-[#080616] pt-4 text-white lg:hidden">
+      <div className="min-h-full px-4 pb-8 pt-2">
+        <div className="mx-auto flex max-w-3xl items-center justify-between">
+          <span className="flex items-center gap-2">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-[#2F2FE4] to-[#162E93] text-lg font-medium text-white">T</span>
+            <span className="font-medium text-white">Tech<span className="gradient-text">Vista</span> <span className="block text-[9px] tracking-[0.28em] text-white/80">SOLUTIONS</span></span>
+          </span>
+          <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="grid h-11 w-11 place-items-center rounded-full border border-white/30 bg-[#2F2FE4] text-white"><X size={20} /></button>
+        </div>
+        <p className="mx-auto mt-6 max-w-3xl px-1 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-white/80">End-to-End Technology Solutions</p>
+        <div className="grid gap-1">
+          {NAV.map((item) => {
+            const hasChildren = !!(item.groups || item.items);
+            const expanded = mobileSection === item.id;
+            const flat = item.groups ? item.groups.flatMap((g) => g.items.map((c) => ({ ...c, label: `${g.heading} — ${c.label}` }))) : (item.items || []);
+            return (
+              <div key={item.id} className="overflow-hidden rounded-2xl border border-white/20 bg-[#2F2FE4]">
+                <div className="flex items-center">
+                  <button onClick={() => goTo(item.target)} className="flex-1 px-4 py-4 text-left text-[21px] font-medium leading-tight text-white">{item.label}</button>
+                  {hasChildren && <button onClick={() => setMobileSection(expanded ? null : item.id)} aria-expanded={expanded} aria-label={`Toggle ${item.label}`} className="grid h-11 w-11 place-items-center text-white"><ChevronDown size={18} className={`transition ${expanded ? "rotate-180" : ""}`} /></button>}
+                </div>
+                {hasChildren && expanded && <div className="border-t border-white/20 bg-[#080616] px-2 pb-2 pt-1">{flat.map((c) => <button key={c.label} onClick={() => chooseNavChild(c)} className="w-full rounded-xl px-3 py-2.5 text-left text-sm font-seminormal text-white hover:bg-[#2F2FE4]">{c.label}</button>)}</div>}
+              </div>
+            );
+          })}
+        </div>
+        <button onClick={() => chooseService("Request a Quote — IT Infrastructure")} className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-[#2F2FE4] px-4 py-3.5 text-sm font-medium text-white">Get a Quote <ArrowRight size={16} /></button>
+        <div className="mt-4 flex flex-wrap gap-3 text-sm font-normal text-white">
+          <a href="tel:+919000000000" target="_blank" rel="noopener" className="flex items-center gap-2"><Phone size={15} className="text-white" /> +91 90000 00000</a>
+          <a href="mailto:info@yourcompany.com" target="_blank" rel="noopener" className="flex items-center gap-2 [overflow-wrap:anywhere]"><Mail size={15} className="text-white" /> info@yourcompany.com</a>
+        </div>
+      </div>
+    </div>
+  )}
+</header>
+
+
+
+      <main className="w-full min-w-0 pt-[100px]">
         
 
         
@@ -1410,7 +1544,7 @@ useEffect(() => {
     />
   )}
 
-  <div className="relative h-[540px] w-full sm:h-[580px] lg:h-[620px]">
+  <div className="relative h-[580px] w-full sm:h-[600px] lg:h-[690px]">
     
     {/* Image with smooth fade transition */}
     <div className="absolute inset-0">
@@ -1719,54 +1853,80 @@ useEffect(() => {
     </div>
   </div>
 
-    {/* Services Strip - Infinite Marquee */}
-  <div className="border-y border-[#2F2FE4]/30 bg-[#080616] py-3.5 overflow-hidden relative" aria-label="Services strip">
-    {/* Fade edges for smooth visual entry/exit */}
-    <div className="absolute left-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-r from-[#080616] to-transparent pointer-events-none" />
-    <div className="absolute right-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-l from-[#080616] to-transparent pointer-events-none" />
+  {/* Services Strip - Orange Cut-Style Buttons */}
 
-    <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
-      {/* First set of items */}
-      {[
-        { name: "Hardware", icon: Cpu },
-        { name: "Software", icon: Code2 },
-        { name: "Networking", icon: Network },
-        { name: "Cybersecurity", icon: ShieldCheck },
-        { name: "Cloud", icon: Cloud },
-        { name: "Managed IT", icon: Wrench },
-        { name: "CCTV", icon: Cctv },
-        { name: "Data Center", icon: Server }
-      ].map((service, idx) => (
-        <span 
-          key={`set1-${idx}`} 
-          className="group inline-flex items-center gap-2 rounded-full bg-[#2F2FE4] px-4 py-1.5 mx-1.5 ring-1 ring-[#2F2FE4] transition-all duration-300 hover:bg-white hover:text-[#080616] hover:scale-105 cursor-pointer whitespace-nowrap"
-        >
-          <service.icon size={14} className="transition-transform group-hover:rotate-12" />
-          <span className="text-sm font-medium tracking-wide text-white group-hover:text-[#080616]">{service.name}</span>
-        </span>
-      ))}
+<div
+  className="relative overflow-hidden border-y border-[#2F2FE4]/30 bg-[#080616] py-5"
+  aria-label="Services"
+>
+  {/* Edge fades */}
+  <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-16 bg-gradient-to-r from-[#080616] to-transparent" />
+  <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-16 bg-gradient-to-l from-[#080616] to-transparent" />
 
-      {/* Duplicate set for seamless loop */}
-      {[
-        { name: "Hardware", icon: Cpu },
-        { name: "Software", icon: Code2 },
-        { name: "Networking", icon: Network },
-        { name: "Cybersecurity", icon: ShieldCheck },
-        { name: "Cloud", icon: Cloud },
-        { name: "Managed IT", icon: Wrench },
-        { name: "CCTV", icon: Cctv },
-        { name: "Data Center", icon: Server }
-      ].map((service, idx) => (
-        <span 
-          key={`set2-${idx}`} 
-          className="group inline-flex items-center gap-2 rounded-full bg-[#2F2FE4] px-4 py-1.5 mx-1.5 ring-1 ring-[#2F2FE4] transition-all duration-300 hover:bg-white hover:text-[#080616] hover:scale-105 cursor-pointer whitespace-nowrap"
-        >
-          <service.icon size={14} className="transition-transform group-hover:rotate-12" />
-          <span className="text-sm font-medium tracking-wide text-white group-hover:text-[#080616]">{service.name}</span>
-        </span>
-      ))}
-    </div>
+  {/*
+    Keep two identical groups for a seamless marquee.
+    Use the same service list in both groups.
+  */}
+
+  <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
+
+    {[1, 2].map((set) => (
+      <div
+        key={set}
+        className="flex shrink-0 items-center gap-3 px-2"
+      >
+        {[
+          
+          { name: "Hardware", icon: Cpu },
+          { name: "Software", icon: Code2 },
+          { name: "Networking", icon: Network },
+          { name: "Cybersecurity", icon: ShieldCheck },
+          { name: "Cloud", icon: Cloud },
+          { name: "Managed IT", icon: Wrench },
+          { name: "CCTV", icon: Cctv },
+          { name: "Data Center", icon: Server },
+           { name: "Hardware", icon: Cpu },
+          { name: "Software", icon: Code2 },
+          { name: "Networking", icon: Network },
+          { name: "Cybersecurity", icon: ShieldCheck },
+          { name: "Cloud", icon: Cloud },
+          { name: "Managed IT", icon: Wrench },
+          { name: "CCTV", icon: Cctv },
+          { name: "Data Center", icon: Server },
+        ].map((service, idx) => (
+          <span
+  className="
+    service-cut-button
+    group relative inline-flex shrink-0 items-center
+    gap-2
+    rounded-[10px]
+    bg-[#FF805C]
+    py-2 pl-2 pr-5
+    text-[#171717]
+    transition-all duration-300
+    hover:bg-[#FF956F]
+  "
+>
+  {/* Icon */}
+  <span className="flex h-9 w-9 shrink-0 items-center justify-center">
+    <service.icon
+      size={29}
+      strokeWidth={2.8}
+      className="text-[#171717]"
+    />
+  </span>
+
+  {/* Text */}
+  <span className="whitespace-nowrap text-[21px] font-medium tracking-tight">
+    {service.name}
+  </span>
+</span>
+        ))}
+      </div>
+    ))}
+
   </div>
+</div>
 
   {/* Add this to your existing <style jsx> block */}
   <style jsx>{`
@@ -1813,24 +1973,40 @@ useEffect(() => {
        
 
 {/* FOUR-CARD LAYOUT — each card has its own 4-product slider */}
-<div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:grid-rows-2 h-auto md:h-[600px]">
-  {hardwareCards.map((card) => (
-    <div
-      key={card.id}
-      className={`relative min-h-[320px] md:min-h-0 ${card.span}`}
-    >
-      <HardwareCard
-        product={card}
-        setSelectedProduct={setSelectedProduct}
-        chooseService={chooseService}
-      />
+<section className="relative overflow-hidden bg-[#050505]  text-white">
+  <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
+    
+    {/* ─── HEADING ADDED HERE ─── */}
+    <div className="mb-10 max-w-3xl">
+      <span className="inline-flex items-center gap-2 rounded-full bg-[#2F2FE4]/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-[#90CAF9] ring-1 ring-[#2F2FE4]/30">
+        <Sparkles size={14} /> Hardware Ecosystem
+      </span>
+      <h2 className="mt-4 text-[clamp(1.8rem,4vw,2.9rem)] font-medium leading-tight text-white">
+        Enterprise-Grade <span className="gradient-text">Hardware Solutions</span>
+      </h2>
+      <p className="mt-3 text-[16px] leading-relaxed text-white/70">
+        From networking infrastructure to advanced IoT, drones, and robotics — we provide the physical backbone for your digital operations. 
+        Hover over a card to explore the specific products within each category.
+      </p>
     </div>
-  ))}
-</div>
 
+    {/* ─── YOUR GRID CODE ─── */}
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:grid-rows-2 h-auto md:h-[500px]">
+      {hardwareCards.map((card) => (
+        <div
+          key={card.id}
+          className={`relative min-h-[320px] md:min-h-0 ${card.span}`}
+        >
+          <HardwareCard
+            product={card}
+            setSelectedProduct={setSelectedProduct}
+            chooseService={chooseService}
+          />
+        </div>
+      ))}
+    </div>
 
-
-        {/* --- SOFTWARE SECTION (Reference Image Style 2) --- */}
+    {/* --- SOFTWARE SECTION (Reference Image Style 2) --- */}
        <div className="py-10"> 
  <SoftwareEcosystem
         softwareCards={softwareCards}
@@ -1838,6 +2014,13 @@ useEffect(() => {
         chooseService={chooseService}
       />
       </div>
+
+  </div>
+</section>
+
+
+
+        
 
 
       </div>
@@ -1923,38 +2106,257 @@ useEffect(() => {
           )}
         </div></section>
 
-        <section id="why" className="border-y border-[#2F2FE4]/30 bg-[#080616]"><div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
-          <div className="grid gap-8 lg:grid-cols-[.85fr_1.15fr]"><div className="lg:sticky lg:top-28 lg:self-start"><p className="eyebrow">Why Choose Us?</p><h2 className="mt-2 text-[clamp(1.8rem,4vw,2.8rem)] font-medium leading-tight text-white">Technology That Drives <span className="gradient-text">Business Growth</span></h2><p className="mt-4 leading-relaxed text-white/80">Plain-language advice. No jargon. Clear choices and costs. Installed, tested and handed over — ready to use.</p><button onClick={() => chooseService("Request a Quote — IT Infrastructure")} className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#2F2FE4] px-5 py-3 text-sm font-medium text-white hover:bg-white hover:text-[#080616]">Start with a free consultation <ArrowRight size={16} /></button></div>
-          <div className="grid gap-3 sm:grid-cols-2">{whyItems.map((w) => <div key={w.title} className="rounded-[22px] glass p-5"><span className="grid h-11 w-11 place-items-center rounded-2xl bg-white/10 text-white ring-1 ring-[#2F2FE4]"><w.icon size={22} /></span><h3 className="mt-3 font-medium text-white">{w.title}</h3><p className="mt-1 text-sm leading-relaxed text-white/80">{w.desc}</p></div>)}</div></div>
-        </div></section>
+        <section id="why" className="border-y border-[#2F2FE4]/30 bg-[#080616]">
+  <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
+    {/* 2-Column Layout: Left Content, Right CardSwap */}
+    <div className="grid gap-12 lg:grid-cols-2 lg:gap-8 items-center">
+      
+      {/* LEFT SIDE: Text Content */}
+      <div className="lg:sticky lg:top-28 lg:self-start">
+        <p className="eyebrow">Why Choose Us?</p>
+        <h2 className="mt-2 text-[clamp(1.8rem,4vw,2.8rem)] font-medium leading-tight text-white">
+          Technology That Drives <span className="gradient-text">Business Growth</span>
+        </h2>
+        <p className="mt-4 text-[16px] leading-relaxed text-white/80">
+          Plain-language advice. No jargon. Clear choices and costs. Installed, tested and handed over — ready to use.
+        </p>
+        
+        {/* Optional: Add a list of features below the text to fill the left side */}
+        <ul className="mt-8 space-y-4">
+          {whyItems.slice(0, 4).map((w) => (
+            <li key={w.title} className="flex items-start gap-3">
+              <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#2F2FE4]/20 text-[#2F2FE4]">
+                <w.icon size={16} />
+              </span>
+              <div>
+                <h3 className="text-sm font-medium text-white">{w.title}</h3>
+                <p className="text-xs text-white/60">{w.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-        <section id="industries" className="bg-[#1A1953]"><div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
-          <div className="max-w-3xl"><p className="eyebrow">Industries We Serve</p><h2 className="mt-2 text-[clamp(1.8rem,4vw,2.9rem)] font-medium leading-tight text-white">Industries We Serve — <span className="text-white">Tailored IT For Every Business</span></h2><p className="mt-3 text-[17px] leading-relaxed text-white/80">One partner, different needs. See what we build for YOUR industry — real work, installed and working on site.</p></div>
-          <div className="mt-7 flex flex-wrap gap-2" role="tablist" aria-label="Filter industries">{industryFilters.map((f) => <button key={f} role="tab" aria-selected={industryFilter === f} onClick={() => setIndustryFilter(f)} className={`rounded-full px-4 py-2.5 text-sm font-normal transition ${industryFilter === f ? "bg-[#2F2FE4] text-white shadow-lg" : "bg-white/10 text-white ring-1 ring-[#2F2FE4] hover:bg-white/20"}`}>{f}</button>)}</div>
-          <p className="mt-3 text-sm text-white/80" role="status">Showing <strong className="text-white">{detailedIndustries.filter((c) => industryFilter === "All" || c.filter === industryFilter).length}</strong> {industryFilter === "All" ? "industries" : `${industryFilter} solution`}. Tap View Full Details to open the full screen for that industry.</p>
-          <div className="mt-6 grid items-start gap-5 md:grid-cols-2">
-            {detailedIndustries.filter((c) => industryFilter === "All" || c.filter === industryFilter).map((card) => (
-              <article key={card.id} className="flex flex-col overflow-hidden rounded-[28px] glass transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
-                <div className="relative h-52 w-full overflow-hidden sm:h-60">
-                  <img src={card.image} alt={`${card.name} — ${card.status}`} className="h-full w-full object-cover" />
-                  <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-[#080616] shadow-lg">{card.status}</span>
-                  <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-[#080616]/90 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-white"><card.icon size={14} />{card.filter}</span>
+        <button
+          onClick={() => chooseService("Request a Quote — IT Infrastructure")}
+          className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#2F2FE4] px-6 py-3.5 text-sm font-medium text-white shadow-lg transition-all hover:bg-white hover:text-[#080616] hover:scale-105"
+        >
+          Start with a free consultation <ArrowRight size={16} />
+        </button>
+      </div>
+
+      {/* RIGHT SIDE: CardSwap */}
+      <div className="relative h-[500px] w-full sm:h-[600px] flex items-center justify-center lg:justify-end">
+        {/* 
+          CardSwap Props Explanation:
+          - width/height: The size of individual cards
+          - cardDistance/verticalDistance: How far apart the cards stack
+          - delay: How fast they auto-swap (in ms)
+        */}
+        <CardSwap
+          width={340}
+          height={400}
+          cardDistance={40}
+          verticalDistance={40}
+          delay={4000}
+          pauseOnHover={true}
+          theme="dark"
+        >
+          {/* Generate the cards directly inside CardSwap using your whyItems data */}
+          {whyItems.map((item, index) => (
+            <div
+              key={item.title}
+              className="flex h-full w-full flex-col justify-between overflow-hidden rounded-[18px] p-6"
+              style={{
+                background: 'linear-gradient(180deg, #3a3644 0%, #27242f 100%)',
+                border: '1px solid rgba(255, 255, 255, 0.07)',
+              }}
+            >
+              <div>
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white mb-6">
+                  <item.icon size={24} />
+                </span>
+                <h3 className="text-xl font-medium text-white mb-3">{item.title}</h3>
+                <p className="text-sm leading-relaxed text-white/70">
+                  {item.desc}
+                </p>
+              </div>
+              
+              {/* Bottom decoration */}
+              <div className="mt-6 flex items-center justify-between text-xs font-medium uppercase tracking-wider text-white/40">
+                <span>0{index + 1}</span>
+                <span>TechVista</span>
+              </div>
+            </div>
+          ))}
+        </CardSwap>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+        <section id="industries" className="bg-[#1A1953]">
+  <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
+    
+    <div className="max-w-3xl">
+      <p className="eyebrow">Industries We Serve</p>
+      <h2 className="mt-2 text-[clamp(1.8rem,4vw,2.9rem)] font-medium leading-tight text-white">
+        Industries We Serve — <span className="text-white">Tailored IT For Every Business</span>
+      </h2>
+      <p className="mt-3 text-[17px] leading-relaxed text-white/80">
+        One partner, different needs. See what we build for YOUR industry — real work, installed and working on site.
+      </p>
+    </div>
+
+    {/* Filters */}
+    <div className="mt-7 flex flex-wrap gap-2" role="tablist" aria-label="Filter industries">
+      {industryFilters.map((f) => (
+        <button 
+          key={f} 
+          role="tab" 
+          aria-selected={industryFilter === f} 
+          onClick={() => {
+            setIndustryFilter(f);
+            // Reset slider to start when filter changes
+            if (industrySliderRef.current) industrySliderRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+            setIndustryIndex(0);
+          }} 
+          className={`rounded-full px-4 py-2.5 text-sm font-normal transition ${
+            industryFilter === f 
+              ? "bg-[#2F2FE4] text-white shadow-lg" 
+              : "bg-white/10 text-white ring-1 ring-[#2F2FE4] hover:bg-white/20"
+          }`}
+        >
+          {f}
+        </button>
+      ))}
+    </div>
+
+    <p className="mt-3 text-sm text-white/80" role="status">
+      Showing <strong className="text-white">{detailedIndustries.filter((c) => industryFilter === "All" || c.filter === industryFilter).length}</strong> {industryFilter === "All" ? "industries" : `${industryFilter} solution`}. Tap View Full Details to open the full screen for that industry.
+    </p>
+
+    {/* ────────── INDUSTRIES SLIDER ────────── */}
+    <div className="relative mt-8">
+      
+      {/* Desktop Arrows */}
+      <button 
+        onClick={() => scrollIndustries(-1)} 
+        aria-label="Previous industry" 
+        className="absolute -left-4 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-[#2F2FE4] text-white shadow-2xl ring-1 ring-white/20 transition hover:bg-white hover:text-[#080616] md:grid lg:-left-6"
+      >
+        <ArrowLeft size={20} />
+      </button>
+      
+      <button 
+        onClick={() => scrollIndustries(1)} 
+        aria-label="Next industry" 
+        className="absolute -right-4 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-[#2F2FE4] text-white shadow-2xl ring-1 ring-white/20 transition hover:bg-white hover:text-[#080616] md:grid lg:-right-6"
+      >
+        <ArrowRight size={20} />
+      </button>
+
+      {/* Scrollable Container */}
+      <div 
+        ref={industrySliderRef} 
+        onScroll={onIndustryScroll} 
+        className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-1 pb-4"
+      >
+        {detailedIndustries
+          .filter((c) => industryFilter === "All" || c.filter === industryFilter)
+          .map((card) => (
+            <article 
+              key={card.id} 
+              data-industry-card
+              className="flex w-[320px] shrink-0 snap-start flex-col overflow-hidden rounded-[28px] glass transition duration-300 hover:-translate-y-1 hover:shadow-2xl sm:w-[400px] md:w-[460px]"
+            >
+              <div className="relative h-52 w-full overflow-hidden sm:h-60">
+                <img src={card.image} alt={`${card.name} — ${card.status}`} className="h-full w-full object-cover" />
+                <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-[#080616] shadow-lg">{card.status}</span>
+                <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-[#080616]/90 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-white">
+                  <card.icon size={14} />{card.filter}
+                </span>
+              </div>
+              
+              <div className="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 className="text-[22px] font-medium leading-tight text-white [overflow-wrap:anywhere]">{card.name}</h3>
+                <p className="mt-1 text-sm font-normal text-white/70">{card.tagline}</p>
+                <p className="mt-3 text-sm leading-relaxed text-white/80 [overflow-wrap:anywhere]">{card.detail}</p>
+                
+                <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.14em] text-white">What We Do For This Industry</p>
+                <ul className="mt-3 space-y-2">
+                  {card.features.slice(0, 3).map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-sm font-seminormal leading-snug text-white">
+                      <CheckCircle2 size={17} className="mt-0.5 shrink-0 text-white" />
+                      <span className="[overflow-wrap:anywhere]">{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                
+                <div className="mt-4 rounded-2xl border border-[#2F2FE4] bg-white/10 p-4">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white">Example Project</p>
+                  <p className="mt-1.5 text-sm font-seminormal leading-relaxed text-white [overflow-wrap:anywhere]">{card.example}</p>
+                  <p className="mt-1 text-xs font-normal text-white">{card.timeline}</p>
                 </div>
-                <div className="flex flex-1 flex-col p-5 sm:p-6">
-                  <h3 className="text-[22px] font-medium leading-tight text-white [overflow-wrap:anywhere]">{card.name}</h3>
-                  <p className="mt-1 text-sm font-normal text-white/70">{card.tagline}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-white/80 [overflow-wrap:anywhere]">{card.detail}</p>
-                  <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.14em] text-white">What We Do For This Industry</p>
-                  <ul className="mt-3 space-y-2">{card.features.slice(0, 3).map((f) => <li key={f} className="flex items-start gap-2 text-sm font-seminormal leading-snug text-white"><CheckCircle2 size={17} className="mt-0.5 shrink-0 text-white" /><span className="[overflow-wrap:anywhere]">{f}</span></li>)}</ul>
-                  <div className="mt-4 rounded-2xl border border-[#2F2FE4] bg-white/10 p-4"><p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white">Example Project</p><p className="mt-1.5 text-sm font-seminormal leading-relaxed text-white [overflow-wrap:anywhere]">{card.example}</p><p className="mt-1 text-xs font-normal text-white">{card.timeline}</p></div>
-                  <div className="mt-4"><p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/70">Popular Products</p><div className="mt-2 flex flex-wrap gap-2">{card.products.map((p) => <button key={p} onClick={() => chooseCatalogCategory(card.name, p)} className="rounded-full border border-[#2F2FE4] bg-[#080616] px-3 py-1.5 text-xs font-normal text-white transition hover:bg-[#2F2FE4] [overflow-wrap:anywhere]">{p}</button>)}</div></div>
-                  <button onClick={() => openIndustry(card.id)} className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#2F2FE4] px-5 py-3.5 text-sm font-medium text-white shadow-md hover:bg-white hover:text-[#080616]">View Full Details <ArrowRight size={16} /></button>
+                
+                <div className="mt-4">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/70">Popular Products</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {card.products.map((p) => (
+                      <button key={p} onClick={() => chooseCatalogCategory(card.name, p)} className="rounded-full border border-[#2F2FE4] bg-[#080616] px-3 py-1.5 text-xs font-normal text-white transition hover:bg-[#2F2FE4] [overflow-wrap:anywhere]">
+                        {p}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </article>
-            ))}
-          </div>
-          <div className="mt-6 overflow-hidden rounded-[28px] bg-gradient-to-r from-[#2F2FE4] to-[#080616] p-[1.5px]"><div className="flex flex-col gap-4 rounded-[27px] bg-[#080616] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7"><div><p className="text-xl font-medium text-white sm:text-2xl">Not Sure Which Industry Fits You?</p><p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/80 [overflow-wrap:anywhere]">We also serve: <strong className="text-white">Professional Services, Hospitality, Real Estate, NGOs, Coaching Institutes</strong> — Talk to an Expert</p></div><button onClick={() => chooseService("Request a Quote — IT Infrastructure")} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#2F2FE4] px-5 py-3.5 text-sm font-medium text-white hover:bg-white hover:text-[#080616]">Talk to an Expert <ArrowRight size={16} /></button></div></div>
-        </div></section>
+                
+                <button onClick={() => openIndustry(card.id)} className="mt-auto pt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#2F2FE4] px-5 py-3.5 text-sm font-medium text-white shadow-md hover:bg-white hover:text-[#080616]">
+                  View Full Details <ArrowRight size={16} />
+                </button>
+              </div>
+            </article>
+        ))}
+      </div>
+
+      {/* Pagination Dots */}
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-1.5" role="tablist" aria-label="Industry slides">
+        {detailedIndustries
+          .filter((c) => industryFilter === "All" || c.filter === industryFilter)
+          .map((c, i) => (
+            <button
+              key={c.id}
+              role="tab"
+              aria-selected={industryIndex === i}
+              aria-label={`Go to ${c.name}`}
+              onClick={() => goToIndustry(i)}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                industryIndex === i 
+                  ? "w-7 bg-[#2F2FE4] shadow-lg" 
+                  : "w-2.5 bg-white/40 hover:bg-white/80"
+              }`}
+            />
+        ))}
+      </div>
+
+    </div>
+    {/* ────────── END SLIDER ────────── */}
+
+    <div className="mt-10 overflow-hidden rounded-[28px] bg-gradient-to-r from-[#2F2FE4] to-[#080616] p-[1.5px]">
+      <div className="flex flex-col gap-4 rounded-[27px] bg-[#080616] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+        <div>
+          <p className="text-xl font-medium text-white sm:text-2xl">Not Sure Which Industry Fits You?</p>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/80 [overflow-wrap:anywhere]">
+            We also serve: <strong className="text-white">Professional Services, Hospitality, Real Estate, NGOs, Coaching Institutes</strong> — Talk to an Expert
+          </p>
+        </div>
+        <button onClick={() => chooseService("Request a Quote — IT Infrastructure")} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#2F2FE4] px-5 py-3.5 text-sm font-medium text-white hover:bg-white hover:text-[#080616]">
+          Talk to an Expert <ArrowRight size={16} />
+        </button>
+      </div>
+    </div>
+    
+  </div>
+</section>
 
         
 <section id="certifications" className="relative overflow-hidden bg-[#162E93] py-16 sm:py-20">
@@ -2050,26 +2452,138 @@ useEffect(() => {
 </section>
 
 
-        <section id="case-studies" className="bg-[#080616]"><div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
-          <div className="max-w-3xl"><p className="eyebrow">Case Studies</p><h2 className="mt-2 text-[clamp(1.8rem,4vw,2.9rem)] font-medium leading-tight text-white">Real work. Real <span className="gradient-text">results.</span></h2><p className="mt-3 leading-relaxed text-white/80">The challenge, the solution and the result — for projects like yours. Six recent projects, with real on-site photos.</p></div>
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
-            {caseStudies.map((cs) => (
-              <article key={cs.title} className="flex flex-col overflow-hidden rounded-[28px] glass transition hover:-translate-y-1">
-                <div className="relative h-48 w-full overflow-hidden"><img src={cs.image} alt={cs.title} className="h-full w-full object-cover" /><span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1.5 text-[11px] font-medium uppercase tracking-wider text-[#080616] shadow">{cs.tag}</span></div>
-                <div className="flex flex-1 flex-col p-5 sm:p-6"><h3 className="text-xl font-medium leading-tight text-white [overflow-wrap:anywhere]">{cs.title}</h3><p className="mt-1 text-xs font-normal text-white/60">{cs.meta}</p>
-                  <div className="mt-4 space-y-4">
-                    <div><p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white">Challenge</p><ul className="mt-2 space-y-1.5">{cs.challenge.map((x) => <li key={x} className="flex gap-2 text-sm text-white/80"><span className="text-white">•</span><span className="[overflow-wrap:anywhere]">{x}</span></li>)}</ul></div>
-                    <div><p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white">Solution</p><ul className="mt-2 space-y-1.5">{cs.solution.map((x) => <li key={x} className="flex gap-2 text-sm text-white/80"><CheckCircle2 size={15} className="mt-0.5 shrink-0 text-white" /><span className="[overflow-wrap:anywhere]">{x}</span></li>)}</ul></div>
-                    <div className="rounded-2xl bg-white/10 p-4 ring-1 ring-[#2F2FE4]"><p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white">Result</p><ul className="mt-2 space-y-1.5">{cs.result.map((x) => <li key={x} className="flex gap-2 text-sm font-normal text-white"><CheckCircle2 size={15} className="mt-0.5 shrink-0 text-white" /><span className="[overflow-wrap:anywhere]">{x}</span></li>)}</ul></div>
-                  </div>
-                  <button onClick={() => chooseService("Request a Quote — IT Infrastructure")} className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-white hover:text-white/80">Get a similar result <ArrowRight size={15} /></button>
+        <section id="case-studies" className="bg-[#080616]">
+  <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
+    
+    <div className="max-w-3xl">
+      <p className="eyebrow">Case Studies</p>
+      <h2 className="mt-2 text-[clamp(1.8rem,4vw,2.9rem)] font-medium leading-tight text-white">
+        Real work. Real <span className="gradient-text">results.</span>
+      </h2>
+      <p className="mt-3 leading-relaxed text-white/80">
+        The challenge, the solution and the result — for projects like yours. Six recent projects, with real on-site photos.
+      </p>
+    </div>
+
+    {/* ────────── CASE STUDIES SLIDER ────────── */}
+    <div className="relative mt-8">
+      
+      {/* Desktop Arrows */}
+      <button 
+        onClick={() => scrollCaseStudies(-1)} 
+        aria-label="Previous case study" 
+        className="absolute -left-4 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-[#2F2FE4] text-white shadow-2xl ring-1 ring-white/20 transition hover:bg-white hover:text-[#080616] md:grid lg:-left-6"
+      >
+        <ArrowLeft size={20} />
+      </button>
+      
+      <button 
+        onClick={() => scrollCaseStudies(1)} 
+        aria-label="Next case study" 
+        className="absolute -right-4 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-[#2F2FE4] text-white shadow-2xl ring-1 ring-white/20 transition hover:bg-white hover:text-[#080616] md:grid lg:-right-6"
+      >
+        <ArrowRight size={20} />
+      </button>
+
+      {/* Scrollable Container */}
+      <div 
+        ref={caseStudySliderRef} 
+        onScroll={onCaseStudyScroll} 
+        className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-1 pb-4"
+      >
+        {caseStudies.map((cs) => (
+          <article 
+            key={cs.title} 
+            data-case-card
+            className="flex w-[320px] shrink-0 snap-start flex-col overflow-hidden rounded-[28px] glass transition hover:-translate-y-1 sm:w-[380px] lg:w-[400px]"
+          >
+            <div className="relative h-48 w-full overflow-hidden">
+              <img src={cs.image} alt={cs.title} className="h-full w-full object-cover" />
+              <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1.5 text-[11px] font-medium uppercase tracking-wider text-[#080616] shadow">
+                {cs.tag}
+              </span>
+            </div>
+            
+            <div className="flex flex-1 flex-col p-5 sm:p-6">
+              <h3 className="text-xl font-medium leading-tight text-white [overflow-wrap:anywhere]">{cs.title}</h3>
+              <p className="mt-1 text-xs font-normal text-white/60">{cs.meta}</p>
+              
+              <div className="mt-4 space-y-4">
+                <div>
+                  <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white">Challenge</p>
+                  <ul className="mt-2 space-y-1.5">
+                    {cs.challenge.map((x) => (
+                      <li key={x} className="flex gap-2 text-sm text-white/80">
+                        <span className="text-white">•</span>
+                        <span className="[overflow-wrap:anywhere]">{x}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </article>
-            ))}
-          </div>
-          {downloadMsg && <p role="status" className="mt-5 rounded-2xl bg-[#1A1953] px-4 py-3 text-sm font-normal text-white ring-1 ring-[#2F2FE4]">{downloadMsg}</p>}
-          <div className="mt-5 flex flex-wrap gap-2">{["Product Datasheets", "Company Brochure"].map((d) => <button key={d} onClick={() => handleDownload(d)} className="inline-flex items-center gap-2 rounded-full border border-[#2F2FE4] bg-white/10 px-4 py-2.5 text-sm font-normal text-white hover:bg-white hover:text-[#080616]"><Download size={15} className="text-white" /> Request {d}</button>)}</div>
-        </div></section>
+                
+                <div>
+                  <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white">Solution</p>
+                  <ul className="mt-2 space-y-1.5">
+                    {cs.solution.map((x) => (
+                      <li key={x} className="flex gap-2 text-sm text-white/80">
+                        <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-white" />
+                        <span className="[overflow-wrap:anywhere]">{x}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div className="rounded-2xl bg-white/10 p-4 ring-1 ring-[#2F2FE4]">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white">Result</p>
+                  <ul className="mt-2 space-y-1.5">
+                    {cs.result.map((x) => (
+                      <li key={x} className="flex gap-2 text-sm font-normal text-white">
+                        <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-white" />
+                        <span className="[overflow-wrap:anywhere]">{x}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              
+              <button onClick={() => chooseService("Request a Quote — IT Infrastructure")} className="mt-auto pt-5 inline-flex items-center gap-2 text-sm font-medium text-white hover:text-white/80">
+                Get a similar result <ArrowRight size={15} />
+              </button>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {/* Pagination Dots */}
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-1.5" role="tablist" aria-label="Case study slides">
+        {caseStudies.map((cs, i) => (
+          <button
+            key={cs.title}
+            role="tab"
+            aria-selected={caseStudyIndex === i}
+            aria-label={`Go to ${cs.title}`}
+            onClick={() => goToCaseStudy(i)}
+            className={`h-2.5 rounded-full transition-all duration-300 ${
+              caseStudyIndex === i 
+                ? "w-7 bg-[#2F2FE4] shadow-lg" 
+                : "w-2.5 bg-white/40 hover:bg-white/80"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+    {/* ────────── END SLIDER ────────── */}
+
+    {downloadMsg && (
+      <p role="status" className="mt-8 rounded-2xl bg-[#1A1953] px-4 py-3 text-sm font-normal text-white ring-1 ring-[#2F2FE4]">
+        {downloadMsg}
+      </p>
+    )}
+    
+   
+    
+  </div>
+</section>
 
         {/* ═══════════════════════════════════════════════════════════════
     BRANDS SECTION — With Real Logos
@@ -2134,14 +2648,91 @@ useEffect(() => {
   </div>
 </section>
 
-        <section className="bg-[#162E93]"><div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20"><div className="mx-auto max-w-3xl text-center"><p className="eyebrow">Client Stories</p><h2 className="mt-2 text-[clamp(1.8rem,4vw,2.6rem)] font-medium leading-tight text-white">What customers say about working with us</h2></div>
-          <div className="mx-auto mt-8 max-w-3xl rounded-[28px] glass-strong p-6 text-center sm:p-10">
-            <div className="flex justify-center gap-1 text-white" aria-label={`${t.stars} out of 5 stars`}>{Array.from({ length: t.stars }).map((_, i) => <Star key={i} size={18} fill="currentColor" />)}</div>
-            <blockquote className="mt-5 text-[clamp(1.25rem,3vw,1.8rem)] font-medium leading-snug tracking-tight text-white [overflow-wrap:anywhere]">“{t.quote}”</blockquote>
-            <div className="mt-6 flex items-center justify-center gap-3"><span className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-[#2F2FE4] to-[#080616] text-sm font-medium text-white">{t.initials}</span><span className="text-left"><span className="block text-sm font-medium text-white">{t.role}</span><span className="block text-xs text-white/70">{t.org}</span></span></div>
-            <div className="mt-7 flex items-center justify-center gap-3"><button onClick={() => setQuoteIndex((quoteIndex - 1 + testimonials.length) % testimonials.length)} className="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white ring-1 ring-[#2F2FE4] hover:bg-white/20" aria-label="Previous testimonial"><ArrowLeft size={18} /></button><div className="flex gap-2">{testimonials.map((_, i) => <button key={i} onClick={() => setQuoteIndex(i)} aria-label={`Show testimonial ${i + 1}`} className={`h-2 rounded-full transition ${i === quoteIndex ? "w-7 bg-[#2F2FE4]" : "w-2 bg-white/40"}`} />)}</div><button onClick={() => setQuoteIndex((quoteIndex + 1) % testimonials.length)} className="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white ring-1 ring-[#2F2FE4] hover:bg-white/20" aria-label="Next testimonial"><ArrowRight size={18} /></button></div>
-          </div>
-        </div></section>
+        <section className="bg-[#162E93] overflow-hidden">
+  <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      
+      {/* ────────── LEFT SIDE: HEADING & CONTROLS ────────── */}
+      <div className="lg:col-span-4 flex flex-col items-start pr-4">
+        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-white/10">
+          <Quote size={32} className="text-white/80" fill="currentColor" />
+        </div>
+        
+        <h2 className="text-[clamp(1.8rem,4vw,2.6rem)] font-medium leading-tight text-white">
+          What our<br />customers are<br />saying
+        </h2>
+        
+        {/* Arrows to scroll the slider */}
+        <div className="mt-8 flex items-center gap-3">
+          <button 
+            onClick={() => scrollTestimonials(-1)} 
+            className="grid h-11 w-11 place-items-center rounded-full border border-white/20 bg-transparent text-white transition hover:bg-white hover:text-[#162E93]"
+            aria-label="Previous review"
+          >
+            <ArrowLeft size={18} />
+          </button>
+          <button 
+            onClick={() => scrollTestimonials(1)} 
+            className="grid h-11 w-11 place-items-center rounded-full border border-white/20 bg-transparent text-white transition hover:bg-white hover:text-[#162E93]"
+            aria-label="Next review"
+          >
+            <ArrowRight size={18} />
+          </button>
+        </div>
+
+        
+      </div>
+
+      {/* ────────── RIGHT SIDE: HORIZONTAL SLIDER ────────── */}
+      <div className="lg:col-span-8 relative w-full">
+        {/* 
+          The slider container. 
+          We use negative margin and padding so the cards can bleed off the right edge naturally.
+        */}
+        <div 
+          ref={testimonialSliderRef}
+          onScroll={testimonialSliderRef}
+          className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-4"
+        >
+          {testimonials.map((item, i) => (
+            <div 
+              key={i}
+              className="flex w-[300px] shrink-0 snap-start flex-col justify-between rounded-2xl bg-white p-6 shadow-xl sm:w-[340px]"
+            >
+              <div>
+                {/* 5 Stars */}
+                <div className="flex gap-1 text-[#00B67A]">
+                  {Array.from({ length: item.stars }).map((_, starIdx) => (
+                    <Star key={starIdx} size={18} fill="currentColor" strokeWidth={0} />
+                  ))}
+                </div>
+                
+                {/* Review Text */}
+                <p className="mt-5 text-sm leading-relaxed text-gray-700 line-clamp-6">
+                  "{item.quote}"
+                </p>
+              </div>
+
+              {/* Author Info */}
+              <div className="mt-6 flex items-center gap-3 border-t border-gray-100 pt-5">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#2F2FE4] to-[#080616] text-xs font-bold text-white">
+                  {item.initials}
+                </span>
+                <div className="text-left">
+                  <span className="block text-sm font-semibold text-gray-900">{item.role}</span>
+                  <span className="block text-xs text-gray-500">{item.org}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+          {/* Invisible spacer to allow the last card to scroll fully to the left */}
+          <div className="w-4 shrink-0 sm:w-12" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
         <section id="contact" className="bg-[#162E93]"><div className="mx-auto max-w-7xl px-4 pb-14 pt-14 sm:px-6 sm:pb-20 sm:pt-20"><div className="overflow-hidden rounded-[32px] bg-gradient-to-br from-[#2F2FE4] to-[#080616] p-[1.5px] shadow-2xl"><div className="grid gap-6 rounded-[31px] bg-[#080616] p-5 sm:p-8 lg:grid-cols-[.9fr_1.1fr]">
           <div>
@@ -2211,7 +2802,15 @@ useEffect(() => {
 
         <section className="bg-[#2F2FE4]"><div className="mx-auto max-w-7xl px-4 pb-16 pt-16 sm:px-6 sm:pb-24 sm:pt-24"><div className="overflow-hidden rounded-[32px] bg-gradient-to-r from-[#2F2FE4] to-[#080616] p-[1.5px]"><div className="rounded-[31px] bg-[#080616] px-6 py-10 text-center sm:px-10 sm:py-14">
           <p className="eyebrow">Final Call To Action</p><h2 className="mx-auto mt-3 max-w-2xl text-[clamp(1.9rem,4.5vw,3rem)] font-medium leading-tight text-white">Ready to Transform Your IT Infrastructure?</h2><p className="mx-auto mt-3 max-w-xl leading-relaxed text-white/80">Tell us what you need today — get a clear plan, a genuine quote and a team that stays after go-live.</p>
-          <div className="mt-7 flex flex-wrap justify-center gap-3"><a href="tel:+919000000000" target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-medium text-[#080616] ring-1 ring-[#2F2FE4] hover:bg-[#2F2FE4] hover:text-white"><Phone size={17} /> Call Us Today</a><button onClick={() => { setContactTab("quote"); goTo("contact"); }} className="inline-flex items-center gap-2 rounded-full bg-[#2F2FE4] px-6 py-3.5 text-sm font-medium text-white hover:bg-white hover:text-[#080616]">Request Free Consultation <ArrowRight size={17} /></button></div>
+          <div className="mt-7 flex flex-wrap justify-center gap-3"><a 
+  href="tel:+919000000000" 
+  target="_blank" 
+  rel="noopener" 
+  className="inline-flex items-center gap-2 rounded-full bg-black px-6 py-3.5 text-sm font-medium text-[#080616] ring-1 ring-[#2F2FE4] transition-colors hover:bg-[#2F2FE4] hover:text-white"
+>
+  <Phone size={17} /> 
+  Call Us Today
+</a><button onClick={() => { setContactTab("quote"); goTo("contact"); }} className="inline-flex items-center gap-2 rounded-full bg-[#2F2FE4] px-6 py-3.5 text-sm font-medium text-white hover:bg-white hover:text-[#080616]">Request Free Consultation <ArrowRight size={17} /></button></div>
           <p className="mt-4 text-xs font-normal text-white/80">Free consultation • No obligation • Reply within 2 hours in working hours</p>
         </div></div></div></section>
 
@@ -2256,7 +2855,6 @@ useEffect(() => {
 
       {/* Column 1: Brand + Contact (span 4) */}
       <div className="lg:col-span-4">
-        {/* Logo */}
         <button onClick={() => goTo("home")} className="flex items-center gap-2.5 text-left" aria-label="TechVista — home">
           <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#2F2FE4] to-[#162E93] text-[24px] font-medium text-white shadow-lg">
             T
@@ -2275,7 +2873,6 @@ useEffect(() => {
           End-to-end technology solutions — hardware, software, networking, cybersecurity, cloud and managed IT for businesses across India.
         </p>
 
-        {/* Contact Details */}
         <div className="mt-6 space-y-3">
           <a href="tel:+919000000000" target="_blank" rel="noopener" className="flex items-start gap-3 text-sm text-white/80 transition hover:text-white">
             <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#2F2FE4]/20 text-[#90CAF9]">
@@ -2315,7 +2912,6 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* Social Links */}
         <div className="mt-6 flex gap-2">
           {[
             { label: "LinkedIn", icon: "in", href: "https://linkedin.com" },
@@ -2354,10 +2950,10 @@ useEffect(() => {
             <li key={l.label}>
               <button
                 onClick={() => goTo(l.target)}
-                className="group flex items-center gap-1.5 text-sm text-white/70 transition hover:text-white"
+                className="group flex items-start gap-1.5 text-left text-sm text-white/70 transition hover:text-white"
               >
-                <ChevronRight size={12} className="text-[#2F2FE4] transition group-hover:translate-x-0.5" />
-                {l.label}
+                <ChevronRight size={12} className="mt-1 shrink-0 text-[#2F2FE4] transition group-hover:translate-x-0.5" />
+                <span>{l.label}</span>
               </button>
             </li>
           ))}
@@ -2381,10 +2977,10 @@ useEffect(() => {
             <li key={l.label}>
               <button
                 onClick={() => { setSelectedSolution(l.id); goTo("solutions"); }}
-                className="group flex items-center gap-1.5 text-sm text-white/70 transition hover:text-white"
+                className="group flex items-start gap-1.5 text-left text-sm text-white/70 transition hover:text-white"
               >
-                <ChevronRight size={12} className="text-[#2F2FE4] transition group-hover:translate-x-0.5" />
-                {l.label}
+                <ChevronRight size={12} className="mt-1 shrink-0 text-[#2F2FE4] transition group-hover:translate-x-0.5" />
+                <span>{l.label}</span>
               </button>
             </li>
           ))}
@@ -2402,10 +2998,10 @@ useEffect(() => {
             <li key={label}>
               <button
                 onClick={() => footerIndustry(label)}
-                className="group flex items-center gap-1.5 text-sm text-white/70 transition hover:text-white"
+                className="group flex items-start gap-1.5 text-left text-sm text-white/70 transition hover:text-white"
               >
-                <ChevronRight size={12} className="text-[#2F2FE4] transition group-hover:translate-x-0.5" />
-                {label}
+                <ChevronRight size={12} className="mt-1 shrink-0 text-[#2F2FE4] transition group-hover:translate-x-0.5" />
+                <span>{label}</span>
               </button>
             </li>
           ))}
@@ -2419,6 +3015,7 @@ useEffect(() => {
           Get IT tips, product updates and exclusive offers — straight to your inbox.
         </p>
         
+       
 
         <h4 className="mt-6 text-[11px] font-medium uppercase tracking-[0.16em] text-[#90CAF9]">Quick Links</h4>
         <ul className="mt-3 space-y-2">
@@ -2436,10 +3033,10 @@ useEffect(() => {
                   if (l.label === "Support") { setContactTab("support"); }
                   goTo(l.target);
                 }}
-                className="group flex items-center gap-1.5 text-sm text-white/70 transition hover:text-white"
+                className="group flex items-start gap-1.5 text-left text-sm text-white/70 transition hover:text-white"
               >
-                <ChevronRight size={12} className="text-[#2F2FE4] transition group-hover:translate-x-0.5" />
-                {l.label}
+                <ChevronRight size={12} className="mt-1 shrink-0 text-[#2F2FE4] transition group-hover:translate-x-0.5" />
+                <span>{l.label}</span>
               </button>
             </li>
           ))}

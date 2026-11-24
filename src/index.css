@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap');
 @import "tailwindcss";
 
+
+/* Website scaling */
+#root {
+    zoom: 60%;
+}
+
 :root {
     --bg: #080616;
     --surface: #2F2FE4;
@@ -327,3 +333,36 @@ textarea {
         width: 100%;
     }
 }
+
+/* Notched service button */
+.service-cut-button {
+    position: relative;
+    isolation: isolate;
+}
+
+/* Top inward cut */
+.service-cut-button::before {
+    content: "";
+    position: absolute;
+    left: 39px;
+    top: -7px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #080616;
+    z-index: 2;
+}
+
+/* Bottom inward cut */
+.service-cut-button::after {
+    content: "";
+    position: absolute;
+    left: 39px;
+    bottom: -7px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #080616;
+    z-index: 2;
+}
+
