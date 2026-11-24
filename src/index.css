@@ -1,59 +1,329 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap');
 @import "tailwindcss";
 
-/* ---------- HIDE SCROLLBAR (keeps scroll functionality) ---------- */
-html,
+:root {
+    --bg: #080616;
+    --surface: #2F2FE4;
+    --surface-2: #1A1953;
+    --ink: #FFFFFF;
+    --muted: rgba(255, 255, 255, .82);
+    --line: #2F2FE4;
+    --primary: #2F2FE4;
+    --primary-2: #162E93;
+    --accent: #2F2FE4;
+    --accent-2: #FFFFFF;
+    --success: #2F2FE4;
+    --danger: #D32F2F;
+    --amber: #FFA000;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #080616;
+        --surface: #2F2FE4;
+        --surface-2: #1A1953;
+        --ink: #FFFFFF;
+        --muted: rgba(255, 255, 255, .82);
+        --line: #2F2FE4;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    /* Firefox */
-    scrollbar-width: none;
-    /* IE / Edge legacy */
-    -ms-overflow-style: none;
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Chrome / Safari / Edge (WebKit) */
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
+h1,
+h2,
+h3,
+.display {
+    font-family: 'Sora', 'Manrope', system-ui, sans-serif;
+    color: #FFFFFF;
+}
+
+a {
+    color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+::selection {
+    background: #2F2FE4;
+    color: #FFFFFF;
+}
+
+.eyebrow {
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-size: .7rem;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+.card-shadow {
+    box-shadow: 0 24px 60px rgba(8, 6, 22, .45);
+}
+
+.no-scrollbar::-webkit-scrollbar {
     display: none;
-    width: 0;
-    height: 0;
 }
 
-/* Also hide on the root scroller just in case */
-::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
-}
-
-/* Firefox fallback for all elements */
-* {
+.no-scrollbar {
     scrollbar-width: none;
 }
 
-* {
-    -ms-overflow-style: none;
+.glass {
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid #2F2FE4;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .28);
+    color: #FFFFFF;
 }
 
-@keyframes letterGlow {
-    0% {
-        color: inherit;
-        text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+.glass-strong {
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid #2F2FE4;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, .32);
+    color: #FFFFFF;
+}
+
+.glass h3,
+.glass h4,
+.glass-strong h3,
+.glass-strong h4 {
+    color: #FFFFFF;
+}
+
+.glass p,
+.glass li,
+.glass-strong p,
+.glass-strong li {
+    color: rgba(255, 255, 255, .82);
+}
+
+.glass .text-\[\#1A1953\],
+.glass-strong .text-\[\#1A1953\] {
+    color: #FFFFFF;
+}
+
+.gradient-text {
+    background: linear-gradient(92deg, #FFFFFF 0%, #FFFFFF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.gradient-line {
+    background: linear-gradient(90deg, #2F2FE4, #162E93);
+}
+
+.text-glow {
+    text-shadow: 0 0 24px rgba(47, 47, 228, .35);
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.marquee-track {
+    animation: marquee 38s linear infinite;
+}
+
+.marquee-pause:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+@keyframes floaty {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
 
     50% {
-        color: #ffffff;
-        text-shadow: 0 0 26px rgba(255, 255, 255, 0.75), 0 0 60px rgba(120, 180, 255, 0.5);
-        transform: translateY(-6px);
+        transform: translateY(-10px);
+    }
+}
+
+.floaty {
+    animation: floaty 5s ease-in-out infinite;
+}
+
+.floaty-slow {
+    animation: floaty 7s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0% {
+        box-shadow: 0 0 0 0 rgba(47, 47, 228, .55);
     }
 
     100% {
-        color: #ffffff;
-        text-shadow: 0 0 18px rgba(255, 255, 255, 0.55), 0 0 40px rgba(120, 180, 255, 0.35);
+        box-shadow: 0 0 0 9px rgba(47, 47, 228, 0);
+    }
+}
+
+.pulse-dot {
+    animation: pulse-dot 1.8s ease-out infinite;
+}
+
+@keyframes shimmer {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(220%);
+    }
+}
+
+.shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 45%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .18), transparent);
+    animation: shimmer 3.2s ease-in-out infinite;
+}
+
+@keyframes hero-progress {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+.hero-progress {
+    animation: hero-progress 4s linear forwards;
+}
+
+@keyframes hero-fade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
         transform: translateY(0);
     }
 }
 
-.hero-letter:hover {
-    animation: letterGlow 0.55s ease-out forwards;
-    color: #ffffff;
+.hero-fade {
+    animation: hero-fade .55s ease both;
+}
+
+
+@keyframes slideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-slide-left {
+    animation: slideLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-right {
+    animation: slideRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.custom-scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.custom-scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
+.network-flow {
+    animation: networkFlow 3s linear infinite;
+}
+
+@keyframes networkFlow {
+    from {
+        stroke-dashoffset: 80;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+
+.certification-marquee {
+    animation: certification-scroll 35s linear infinite;
+    will-change: transform;
+}
+
+.certification-marquee:hover {
+    animation-play-state: paused;
+}
+
+@keyframes certification-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .certification-marquee {
+        animation: none;
+    }
+}
+@keyframes slideProgress {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
 }
